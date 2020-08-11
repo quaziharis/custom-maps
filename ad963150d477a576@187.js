@@ -1,3 +1,7 @@
+import * as d3 from 'd3'
+import { handleErrors } from '../common/utils'
+declare var looker: Looker
+declare var LookerCharts: LookerChartUtils
 const vismap = {
     /**
      * Configuration options for your visualization. In Looker, these show up in the vis editor
