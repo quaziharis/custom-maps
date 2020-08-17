@@ -25,7 +25,7 @@ const vismap = {
       },
       updateAsync: function(data, element, config, queryResponse, details, doneRendering){
           (function define(runtime, observer)
-           const main = runtime.module(); {
+           {
             const main = runtime.module();
             //   main.variable(observer()).define(["md"], function(md){return(
             // md`# Zoomable Raster & Vector
