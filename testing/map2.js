@@ -1,0 +1,98 @@
+import * as d3 from 'd3'
+import { formatType, handleErrors } from '../common/utils'
+
+import { Looker, VisualizationDefinition} from '../types/types'
+declare var looker: Looker
+interface MapVisualization extends VisualizationDefinition {
+  svg?: any,
+  tooltip?: any
+}
+
+const vis:MapVisualization ={
+ /**
+  * Configuration options for your visualization. In Looker, these show up in the vis editor
+  * panel but here, you can just manually set your default values in the code.
+  **/
+  options: {
+    first_option: {
+    	type: "string",
+      label: "My First Option",
+      default: "Default Value"
+    },
+    second_option: {
+    	type: "number",
+      label: "My Second Option",
+      default: 42
+    }
+  },
+  create: function(element, config) {
+    element.innerHTML = `
+          <style>
+            .mapchart{
+              fill: #005DAA;
+             
+            }
+            .groups text {
+              font-size: 2em;
+            }
+            .mapchart, .map-tip {
+                font-family: "Proxima Nova", Montserrat, sans-serif;
+            }
+            .map-tip {
+              position: absolute;
+              top: 10px;
+              left: 20px;
+              
+            }
+          </style>
+        `
+    
+        this.tooltip = d3.select(element).append('div').attr('class', 'map-tip')
+        this.svg = d3.select(element).append('svg')
+  },
+   
+    /**
+     * UpdateAsync is the function that gets called (potentially) multiple times. It receives
+     * the data and should update the visualization with the new data.
+     **/
+ updateAsync: function(data, element, config, queryResponse, details, doneRendering){
+   var width = 900, 
+       height = 600; 
+   const svg = this.svg
+                   .html('')
+                   .attr("width", width)
+                   .attr("height", height)
+                   .append("g")
+
+   var projection = d3.geoEquirectangular()
+                      .scale(170)
+                      .translate([width / 2, height / 2]);
+ 
+   var geoPath = d3.geoPath()
+         .projection(projection);
+   
+   formattedData = []
+   data.forEach(function(d) {
+         formattedData.push
+           var dimension = queryResponse.fields.dimension_like
+           var measure = queryResponse.fields.measure_like[0]
+         
+       });
+   d3.queue()
+     .defer(d3.json,"https://gist.githubusercontent.com/bquast/944781aa6dcc257ebf9aeee3c098b637/raw/871039f36e7b277a20d34619d72ec6b62957fe28/world-topo.json")
+     .await(ready);
+   
+   function ready(error, countries){
+     svg.append("g")
+        .selectAll("path")
+        .data(topojson.feature(countries, countries.objects.countries).features)
+        .enter()
+        .append("path")
+        .attr( "d", geoPath )
+        .attr("class","country");
+   }
+   doneRendering()
+ }
+};
+
+looker.plugins.visualizations.add(vis);
