@@ -70,25 +70,34 @@ const visObject ={
          .projection(projection);
    
    formattedData = []
-   data.forEach(function(d) {
+   data.forEach(function(d) {
          formattedData.push
            var dimension = queryResponse.fields.dimension_like
            var measure = queryResponse.fields.measure_like[0]
          
        });
-       
-       function ready(error, countries){
-         
-          svg.append("g")
-             .selectAll("path")
-             .data(formattedData)
-             .enter()
-             .append("path")
-             .attr( "d", geoPath )
-             .attr("class","country");
-       }
-      doneRendering()
-    }
+   d3.queue()
+     .defer(d3.json,"https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json")
+     .await(ready);
+   
+   function ready(error, countries){
+     svg.append("g")
+        .selectAll("path")
+        .data(topojson.feature(countries, countries.objects.countries).features)
+        .enter()
+        .append("path")
+        .attr( "d", geoPath )
+        .attr("class","country");
+   }
+   doneRendering()
+ }
 };
 
 looker.plugins.visualizations.add(visObject);
+##DEPENDENCY
+"[
+    "https://code.jquery.com/jquery-2.2.4.min.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"
+]"
