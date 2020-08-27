@@ -107,15 +107,15 @@
         .enter()
         .append("path")
         .attr( "d", geoPath )
-        .attr("stroke","yellow")
-        .attr("fill","blue")
+        .attr("stroke","grey")
+        .attr("fill","black")
         .attr("class","country");
      g.selectAll("geojson")
         .data(formattedData).enter()
         .append("path")
-        .attr("stroke","black")
+        .attr("stroke","yellow")
         .attr("fill","white")
-        .attr('fill-opacity', 0.1)
+        .attr('fill-opacity', 0.4)
         .attr("d",line(formattedData));
      g.selectAll("circle")
 		    .data(formattedData).enter()
@@ -132,7 +132,7 @@
       .attr("dy", -7) 
       .style("fill", "black") 
       .attr("text-anchor", "middle")
-      .attr("fontsize",".2px")
+      .attr("font-size","12px")
       .text(function(d) {return  (d.name);});
 
     }
