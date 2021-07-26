@@ -90,7 +90,7 @@ const visObject ={
    formattedData = []
     data.forEach(function(d) {
       formattedData.push({
-      	const dimensions = queryResponse.fields.dimension_like
+	      dimensions : queryResponse.fields.dimension_like
       });
     });
    d3.queue()
