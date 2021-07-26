@@ -110,8 +110,8 @@ const visObject ={
      svg.selectAll("circle")
 		    .data(formattedData).enter()
 		    .append("circle")
-		    .attr("cx", function (d) { return projection (d.dimensions)[0]; })
-		    .attr("cy", function (d) { return projection (d.dimensions)[1]; })
+		    .attr("cx", function (d) { return projection (d.coordinate)[0]; })
+		    .attr("cy", function (d) { return projection (d.coordinate)[1]; })
 		    .attr("r", "3px")
 		    .attr("fill", "red");
    }
